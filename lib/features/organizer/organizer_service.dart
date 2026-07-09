@@ -79,7 +79,8 @@ class OrganizerService {
     }
     final gaps = <EpisodeGap>[];
     for (final episodes in byShowSeason.values) {
-      final have = episodes.map((e) => e.episodeNumber!).toSet();
+      // Cast the collection iteration maps explicitly to prevent the Object? compilation freeze
+      final have = episodes.map((MediaItem e) => e.episodeNumber!).toSet();
       final highest = have.reduce((a, b) => a > b ? a : b);
       final missing = [
         for (var n = 1; n <= highest; n++)
